@@ -33,7 +33,6 @@ optR2.lsq.Icomp.XL = [0.015, 0, 0.999];
 
 optR2.debug = 1;
 S = squeeze(img(107, 158, 15, :));
-%S = squeeze(img(107, 158, 15, 1:8));
 [T2, B1, amp] = StimFit(S, optR2);
 
 
@@ -42,6 +41,12 @@ S = squeeze(img(107, 158, 15, :));
 optR2.debug = 0;
 optR2.th_te = 3; %  Use third echo for image threshold
 gcp;
-[T2, R2, B1, amp] = StimFitImg(img(:, :, 15, :), optR2);
+
+for slice = 1:16,
+    disp(sprintf('Currently on slice: %d', slice));
+    [T2, R2, B1, amp] = StimFitImg(img(:, :, slice, :), optR2); % One slice
+end
+%[T2, R2, B1, amp] = StimFitImg(img, optR2); % Option to do all slices
+
 figure(2);
 imagesc(T2, [0 0.15]);colorbar; colormap gray; axis image;
