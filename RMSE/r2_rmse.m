@@ -1,6 +1,6 @@
 function [rms, vox] = r2_rmse(T2, TE, magTE0, map)
 
-% 5:45pm May, 21 2020 
+% 10:11am May, 22 2020 
 
 % T2 is the original image as a 4D voxel
 % TE is the echo times for T2
@@ -21,7 +21,7 @@ function [rms, vox] = r2_rmse(T2, TE, magTE0, map)
     end
 
 % uses original T2 image to compare against predicted 'ypred' to find rms
-	rms = sqrt(mean((T2-vox).^2./vox.^2,4));
+	rms = sqrt(mean((T2-vox).^2./T2.^2,4));
     rms(isnan(rms)) = 0;    % troubleshoots isnan values and sets them to 0
     
 end
